@@ -30,6 +30,8 @@ public class Email implements LiteralEntity {
 		validate(email);
 		this.literal = email;
 	}
+	
+	public Email() {}
 
 	private void validate(String email) throws NotValidEmailException {
 		if (email == null) throw new NotValidEmailException("Email can not be null");

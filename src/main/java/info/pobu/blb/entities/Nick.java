@@ -30,6 +30,8 @@ public class Nick implements LiteralEntity {
 		validate(nick);
 		this.literal = nick;
 	}
+	
+	public Nick() {}
 
 	private void validate(String str) throws NickIsTooShortException, NickIsTooLongException {
 		if (str == null)

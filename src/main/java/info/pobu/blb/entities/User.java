@@ -36,4 +36,6 @@ public class User {
 		this.nick = nick;
 		this.email = email;
 	}
+	
+	public User() {}
 }
