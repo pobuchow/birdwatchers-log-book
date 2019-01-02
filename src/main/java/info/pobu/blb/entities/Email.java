@@ -6,10 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 import info.pobu.blb.entities.exceptions.NotValidEmailException;
 import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 public class Email implements LiteralEntity {
@@ -20,7 +20,8 @@ public class Email implements LiteralEntity {
 	@GeneratedValue
 	private int id;
 	
-	@Getter @Setter
+	@NotNull
+	@Getter
 	private String literal;
 	
 	@OneToOne(mappedBy="email")

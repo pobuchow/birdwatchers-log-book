@@ -4,11 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 import info.pobu.blb.entities.exceptions.NickIsTooLongException;
 import info.pobu.blb.entities.exceptions.NickIsTooShortException;
 import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 public class Nick implements LiteralEntity {
@@ -20,7 +20,8 @@ public class Nick implements LiteralEntity {
 	@GeneratedValue
 	private int id;
 	
-	@Getter @Setter
+	@NotNull
+	@Getter 
 	private String literal;
 	
 	@OneToOne(mappedBy="nick")
