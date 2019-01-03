@@ -22,7 +22,7 @@ public class Observation {
 	
 	@NotNull
 	@ElementCollection(targetClass=Species.class)
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	private List<Species> species;
 	
 	@NotNull
@@ -32,7 +32,7 @@ public class Observation {
 	private LocalDate date;
 	
 	@ManyToOne
-	@JoinColumn(name="user_id", nullable=false)
+	@JoinColumn(name="user_id")//, nullable=false) TODO observation controller should handle users
 	private User user;
 	
 	public Observation(List<Species> species, String location, LocalDate date) {
