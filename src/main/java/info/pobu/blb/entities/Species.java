@@ -12,7 +12,6 @@ public enum Species {
 	@Getter
 	private String name;
 	
-	
 	@Enumerated(EnumType.ORDINAL)
 	@Getter
 	private Genus genus;
