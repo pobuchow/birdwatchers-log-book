@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import info.pobu.blb.entities.exceptions.NickIsTooLongException;
 import info.pobu.blb.entities.exceptions.NickIsTooShortException;
@@ -24,6 +25,7 @@ public class Nick implements LiteralEntity {
 	
 	@NotNull
 	@Getter 
+	@Size(min = MIN_NICK_LENGTH, max = MAX_NICK_LENGTH)
 	private String literal;
 	
 	@OneToOne(mappedBy = "nick")
