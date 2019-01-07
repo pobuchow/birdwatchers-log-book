@@ -51,9 +51,18 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping(path = "/get")
+    @GetMapping(path = "/findByNick")
     public @ResponseBody User findByNickLiteral(@RequestParam String nick) {
         final List<User> result = userRepository.findAll().stream().filter(u -> nick.equals(u.getNick().getLiteral()))
+                .collect(Collectors.toList());
+        Assert.isTrue(result.size() < 2, "result list should contain one or no users");
+
+        return result.isEmpty() ? null : result.get(0);
+    }
+    
+    @GetMapping(path = "/findByEmail")
+    public @ResponseBody User findByEmailLiteral(@RequestParam String email) {
+        final List<User> result = userRepository.findAll().stream().filter(u -> email.equals(u.getEmail().getLiteral()))
                 .collect(Collectors.toList());
         Assert.isTrue(result.size() < 2, "result list should contain one or no users");
 

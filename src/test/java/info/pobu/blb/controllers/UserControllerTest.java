@@ -124,20 +124,39 @@ public class UserControllerTest {
     }
 
     @Test
-    public void shouldFindUserWithNick_a_test() {
-        String a_nick = USER_A_NICK.getLiteral();
+    public void shouldFindUserWithExistingNick() {
+        String existingNick = USER_A_NICK.getLiteral();
 
-        User user = controller.findByNickLiteral(a_nick);
+        User user = controller.findByNickLiteral(existingNick);
 
         Assert.assertNotNull(user);
-        Assert.assertEquals(a_nick, user.getNick().getLiteral());
+        Assert.assertEquals(existingNick, user.getNick().getLiteral());
     }
 
     @Test
-    public void shouldNotFingUserWithNick_d_test() {
-        String d_nick = "d_test";
+    public void shouldNotFingUserWithNotExistingNick() {
+        String notExistingNick = "d_test";
 
-        User user = controller.findByNickLiteral(d_nick);
+        User user = controller.findByNickLiteral(notExistingNick);
+
+        Assert.assertNull(user);
+    }
+    
+    @Test
+    public void shouldFindUserWithExistingEmail() {
+        String existingEmail = USER_A_EMAIL.getLiteral();
+
+        User user = controller.findByEmailLiteral(existingEmail);
+
+        Assert.assertNotNull(user);
+        Assert.assertEquals(existingEmail, user.getEmail().getLiteral());
+    }
+
+    @Test
+    public void shouldNotFingUserWithNotExistingEmail() {
+        String notExistingEmail = "d@qwe.asd";
+
+        User user = controller.findByNickLiteral(notExistingEmail);
 
         Assert.assertNull(user);
     }
