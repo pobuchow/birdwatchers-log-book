@@ -51,7 +51,7 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping(path = "/findByNick")
+    @GetMapping(path = "/findBy", params = "nick")
     public @ResponseBody User findByNickLiteral(@RequestParam String nick) {
         final List<User> result = userRepository.findAll().stream().filter(u -> nick.equals(u.getNick().getLiteral()))
                 .collect(Collectors.toList());
@@ -60,7 +60,7 @@ public class UserController {
         return result.isEmpty() ? null : result.get(0);
     }
     
-    @GetMapping(path = "/findByEmail")
+    @GetMapping(path = "/findBy", params = "email")
     public @ResponseBody User findByEmailLiteral(@RequestParam String email) {
         final List<User> result = userRepository.findAll().stream().filter(u -> email.equals(u.getEmail().getLiteral()))
                 .collect(Collectors.toList());
