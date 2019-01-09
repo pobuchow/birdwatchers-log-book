@@ -17,7 +17,7 @@ public enum Species {
     THREE_TOED_WOODPECKER("Three-toed woodpecker", Genus.PICOIDES, "Picoides tridactylus", Family.PICIDAE);
 
     @Getter
-    private String name;
+    private String literal;
 
     @Getter
     private Genus genus;
@@ -29,7 +29,7 @@ public enum Species {
     private Family family;
 
     private Species(String name, Genus genus, String binomial, Family family) {
-        this.name = name;
+        this.literal = name;
         this.genus = genus;
         this.binomial = binomial;
         this.family = family;

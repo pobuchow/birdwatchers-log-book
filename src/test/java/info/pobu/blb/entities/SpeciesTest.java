@@ -11,7 +11,7 @@ public class SpeciesTest {
             Assert.assertNotNull("binomial should not be null", species.getBinomial());
             Assert.assertNotNull("family should not be null", species.getFamily());
             Assert.assertNotNull("genus should not be null", species.getGenus());
-            Assert.assertNotNull("name should not be null", species.getName());
+            Assert.assertNotNull("name should not be null", species.getLiteral());
           }
     }
 

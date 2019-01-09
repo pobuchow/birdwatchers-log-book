@@ -1,7 +1,6 @@
 package info.pobu.blb.entities;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -13,36 +12,42 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import lombok.Getter;
+
 @Entity
 public class Observation {
 
-	@Id
-	@GeneratedValue
-	private int id;
-	
-	@NotNull
-	@ElementCollection(targetClass=Species.class)
-	@Enumerated(EnumType.STRING)
-	private List<Species> species;
-	
-	@NotNull
-	private String location;
-	
-	@NotNull
-	private LocalDate date;
-	
-	@ManyToOne
-	@JoinColumn(name="user_id")//, nullable=false) TODO observation controller should handle users
-	private User user;
-	
-	public Observation(List<Species> species, String location, LocalDate date) {
-		super();
-		this.species = species;
-		this.location = location;
-		this.date = date;
-	}
+    @Id
+    @GeneratedValue
+    private int id;
 
-	public Observation() {
-		
-	}
+    @NotNull
+    @ElementCollection(targetClass = Species.class)
+    @Enumerated(EnumType.STRING)
+    @Getter
+    private Species species;
+
+    @NotNull
+    @Getter
+    private String location;
+
+    @NotNull
+    @Getter
+    private LocalDate date;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @Getter
+    private User user;
+
+    public Observation(User user, Species species, String location, LocalDate date) {
+        this.user = user;
+        this.species = species;
+        this.location = location;
+        this.date = date;
+    }
+
+    public Observation() {
+
+    }
 }
