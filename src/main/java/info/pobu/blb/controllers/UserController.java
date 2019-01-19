@@ -3,6 +3,8 @@ package info.pobu.blb.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -25,24 +27,43 @@ public class UserController {
 
     @Autowired
     private IUserRepository userRepository;
+    
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @GetMapping(path = "/add")
     public @ResponseBody User addNewUser(@RequestParam String nick, @RequestParam String email)
             throws UserValidationFailedException {
+        
+        logger.info("adding new user: " + nick);
+        
+        Nick usersNick = getNick(nick);
+        Email usersEmail = getEmail(email);
+        
+        final User user = userRepository.save(new User(usersNick, usersEmail));
+        
+        logger.info("user: " + user.getNick().getLiteral() + " added with ID: " + user.getId());
+        
+        return user;
+    }
 
-        Nick usersNick = null;
-        try {
-            usersNick = new Nick(nick);
-        } catch (NickValidationFailedException e) {
-            throw new UserValidationFailedException(e.getMessage());
-        }
+    private Email getEmail(String email) throws UserValidationFailedException {
         Email usersEmail = null;
         try {
             usersEmail = new Email(email);
         } catch (EmailValidationFailedException e) {
             throw new UserValidationFailedException(e.getMessage());
         }
-        return userRepository.save(new User(usersNick, usersEmail));
+        return usersEmail;
+    }
+
+    private Nick getNick(String nick) throws UserValidationFailedException {
+        Nick usersNick = null;
+        try {
+            usersNick = new Nick(nick);
+        } catch (NickValidationFailedException e) {
+            throw new UserValidationFailedException(e.getMessage());
+        }
+        return usersNick;
     }
 
     @GetMapping(path = "/all")
