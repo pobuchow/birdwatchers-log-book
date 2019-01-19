@@ -1,10 +1,10 @@
 package info.pobu.blb.entities.exceptions;
 
-public class NotValidEmailException extends Exception {
+public class EmailValidationFailedException extends Exception {
 
 	private static final long serialVersionUID = -181504509543056086L;
 	
-	public NotValidEmailException(String message) {
+	public EmailValidationFailedException(String message) {
 		super(message);
 	}
 }

@@ -15,9 +15,8 @@ import info.pobu.blb.controllers.exceptions.UserValidationFailedException;
 import info.pobu.blb.entities.Email;
 import info.pobu.blb.entities.Nick;
 import info.pobu.blb.entities.User;
-import info.pobu.blb.entities.exceptions.NickIsTooLongException;
-import info.pobu.blb.entities.exceptions.NickIsTooShortException;
-import info.pobu.blb.entities.exceptions.NotValidEmailException;
+import info.pobu.blb.entities.exceptions.EmailValidationFailedException;
+import info.pobu.blb.entities.exceptions.NickValidationFailedException;
 import info.pobu.blb.repositories.IUserRepository;
 
 @Controller
@@ -34,13 +33,13 @@ public class UserController {
         Nick usersNick = null;
         try {
             usersNick = new Nick(nick);
-        } catch (NickIsTooShortException | NickIsTooLongException e) {
+        } catch (NickValidationFailedException e) {
             throw new UserValidationFailedException(e.getMessage());
         }
         Email usersEmail = null;
         try {
             usersEmail = new Email(email);
-        } catch (NotValidEmailException e) {
+        } catch (EmailValidationFailedException e) {
             throw new UserValidationFailedException(e.getMessage());
         }
         return userRepository.save(new User(usersNick, usersEmail));

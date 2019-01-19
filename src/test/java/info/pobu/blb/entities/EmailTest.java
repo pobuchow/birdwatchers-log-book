@@ -3,7 +3,7 @@ package info.pobu.blb.entities;
 import org.junit.Assert;
 import org.junit.Test;
 
-import info.pobu.blb.entities.exceptions.NotValidEmailException;
+import info.pobu.blb.entities.exceptions.EmailValidationFailedException;
 
 public class EmailTest {
 	
@@ -20,29 +20,29 @@ public class EmailTest {
 		Email email = null;
 		try {
 			email = new Email (VALID_MAIL);
-		} catch (NotValidEmailException e) {
+		} catch (EmailValidationFailedException e) {
 			Assert.fail();
 		}
 		Assert.assertEquals("Email: " + VALID_MAIL + " should be correct created", VALID_MAIL, email.getLiteral());
 	}
 	
-	@Test(expected = NotValidEmailException.class)
-	public void shouldThrowExceptionWhenMailHasNoAt() throws NotValidEmailException {
+	@Test(expected = EmailValidationFailedException.class)
+	public void shouldThrowExceptionWhenMailHasNoAt() throws EmailValidationFailedException {
 		new Email (INVALID_MAIL_WITHOUT_AT);
 	}
 	
-	@Test(expected = NotValidEmailException.class)
-	public void shouldThrowExceptionWhenMailHasNoDomain() throws NotValidEmailException {
+	@Test(expected = EmailValidationFailedException.class)
+	public void shouldThrowExceptionWhenMailHasNoDomain() throws EmailValidationFailedException {
 		new Email (INVALID_MAIL_WITHOUT_DOMAIN);
 	}
 	
-	@Test(expected = NotValidEmailException.class)
-	public void shouldThrowExceptionWhenMailHasNoAddress() throws NotValidEmailException {
+	@Test(expected = EmailValidationFailedException.class)
+	public void shouldThrowExceptionWhenMailHasNoAddress() throws EmailValidationFailedException {
 		new Email (INVALID_MAIL_WITHOUT_ADDRESS);
 	}
 	
-	@Test(expected = NotValidEmailException.class)
-	public void shouldThrowExceptionWhenMailIsNull() throws NotValidEmailException {
+	@Test(expected = EmailValidationFailedException.class)
+	public void shouldThrowExceptionWhenMailIsNull() throws EmailValidationFailedException {
 		new Email (null);
 	}
 }

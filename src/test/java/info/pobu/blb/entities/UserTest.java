@@ -5,9 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import info.pobu.blb.entities.exceptions.NickIsTooLongException;
-import info.pobu.blb.entities.exceptions.NickIsTooShortException;
-import info.pobu.blb.entities.exceptions.NotValidEmailException;
+import info.pobu.blb.entities.exceptions.EmailValidationFailedException;
+import info.pobu.blb.entities.exceptions.NickValidationFailedException;
 
 public class UserTest {
 
@@ -33,14 +32,14 @@ public class UserTest {
 		try {
 			testEmail = new Email(EMAIL_ADDRESS);
 			newEmail = new Email(NEW_EMAIL_ADDRESS);
-		} catch (NotValidEmailException e) {
+		} catch (EmailValidationFailedException e) {
 			Assert.fail("error while creating Email Mock");
 			e.printStackTrace();
 		}
 		try {
 			testNick = new Nick(NICK_ADDRESS);
 			newNick = new Nick(NEW_NICK_ADDRESS);
-		} catch (NickIsTooShortException | NickIsTooLongException e) {
+		} catch (NickValidationFailedException e) {
 			Assert.fail("error while creating Nick Mock");
 			e.printStackTrace();
 		}

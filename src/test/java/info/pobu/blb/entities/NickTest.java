@@ -3,8 +3,7 @@ package info.pobu.blb.entities;
 import org.junit.Assert;
 import org.junit.Test;
 
-import info.pobu.blb.entities.exceptions.NickIsTooLongException;
-import info.pobu.blb.entities.exceptions.NickIsTooShortException;
+import info.pobu.blb.entities.exceptions.NickValidationFailedException;
 
 public class NickTest {
 
@@ -14,31 +13,20 @@ public class NickTest {
 	
 	private static final String CORRECT_NICK = "Mr. Correct";
 
-	@Test(expected = NickIsTooShortException.class)
-	public void shouldNickHaveAtLeast6Characters() throws NickIsTooShortException {
-		try {
+	@Test(expected = NickValidationFailedException.class)
+	public void shouldNickHaveAtLeast6Characters() throws NickValidationFailedException{
 			new Nick(TOO_SHORT_NICK);
-		} catch (NickIsTooLongException e) {
-			Assert.fail();
-		}
 	}
 	
-	@Test(expected = NickIsTooLongException.class)
-	public void shouldNickHaveMax12Characters() throws NickIsTooLongException{
-		try {
+	@Test(expected = NickValidationFailedException.class)
+	public void shouldNickHaveMax12Characters() throws NickValidationFailedException{
 			new Nick(TOO_LONG_NICK);
-		} catch (NickIsTooShortException e) {
-			Assert.fail();
-		}
 	}
 	
 	@Test
-	public void shouldCreateNick() {
-		try {
+	public void shouldCreateNick() throws NickValidationFailedException {
 			Nick n = new Nick(CORRECT_NICK);
-			Assert.assertEquals("Nick: " + CORRECT_NICK + "should be correct.", n.getLiteral(), CORRECT_NICK);
-		} catch (NickIsTooShortException | NickIsTooLongException e) {
-			Assert.fail();
-		}
+			Assert.assertNotNull(n);
+			Assert.assertEquals("Nick: " + CORRECT_NICK + " should be correct created", CORRECT_NICK, n.getLiteral());
 	}
 }
