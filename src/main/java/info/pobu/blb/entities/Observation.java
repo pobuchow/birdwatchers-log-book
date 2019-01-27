@@ -2,7 +2,6 @@ package info.pobu.blb.entities;
 
 import java.time.LocalDate;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -22,7 +21,7 @@ public class Observation {
     private int id;
 
     @NotNull
-    @ElementCollection(targetClass = Species.class)
+//    @ElementCollection(targetClass = Species.class)
     @Enumerated(EnumType.STRING)
     @Getter
     private Species species;

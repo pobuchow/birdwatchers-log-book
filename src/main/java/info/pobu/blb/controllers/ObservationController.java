@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +31,7 @@ public class ObservationController {
 
     @GetMapping(path = "/add")
     public @ResponseBody Observation addNewObservation(@RequestParam int user_id, @RequestParam String species,
-            @RequestParam String location, @RequestParam LocalDate date) throws UserNotFoundException, SpeciesNotFoundException{
+            @RequestParam String location, @RequestParam  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) throws UserNotFoundException, SpeciesNotFoundException{
 
         Species speciesValue = null;
         Optional<User> user = userRepository.findById(user_id);
