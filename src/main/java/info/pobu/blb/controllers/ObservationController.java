@@ -1,6 +1,7 @@
 package info.pobu.blb.controllers;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -55,5 +56,9 @@ public class ObservationController {
         return observation;
     }
     
-    
+    @GetMapping(path = "/all")
+    public @ResponseBody List<Observation> getAllObservations(){
+        logger.info("getting all observations");
+        return observationRepository.findAll();
+    }
 }

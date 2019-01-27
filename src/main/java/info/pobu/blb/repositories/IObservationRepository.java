@@ -1,9 +1,9 @@
 package info.pobu.blb.repositories;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import info.pobu.blb.entities.Observation;
 
-public interface IObservationRepository extends CrudRepository<Observation, Integer> {
+public interface IObservationRepository extends JpaRepository<Observation, Integer> {
 
 }

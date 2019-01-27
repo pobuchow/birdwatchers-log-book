@@ -46,28 +46,9 @@ public class UserController {
         return user;
     }
 
-    private Email getEmail(String email) throws UserValidationFailedException {
-        Email usersEmail = null;
-        try {
-            usersEmail = new Email(email);
-        } catch (EmailValidationFailedException e) {
-            throw new UserValidationFailedException(e.getMessage());
-        }
-        return usersEmail;
-    }
-
-    private Nick getNick(String nick) throws UserValidationFailedException {
-        Nick usersNick = null;
-        try {
-            usersNick = new Nick(nick);
-        } catch (NickValidationFailedException e) {
-            throw new UserValidationFailedException(e.getMessage());
-        }
-        return usersNick;
-    }
-
     @GetMapping(path = "/all")
     public @ResponseBody List<User> getAllUsers() {
+        logger.info("getting all users");
         return userRepository.findAll();
     }
 
@@ -87,5 +68,25 @@ public class UserController {
         Assert.isTrue(result.size() < 2, "result list should contain one or no users");
 
         return result.isEmpty() ? null : result.get(0);
+    }
+    
+    private Email getEmail(String email) throws UserValidationFailedException {
+        Email usersEmail = null;
+        try {
+            usersEmail = new Email(email);
+        } catch (EmailValidationFailedException e) {
+            throw new UserValidationFailedException(e.getMessage());
+        }
+        return usersEmail;
+    }
+
+    private Nick getNick(String nick) throws UserValidationFailedException {
+        Nick usersNick = null;
+        try {
+            usersNick = new Nick(nick);
+        } catch (NickValidationFailedException e) {
+            throw new UserValidationFailedException(e.getMessage());
+        }
+        return usersNick;
     }
 }
