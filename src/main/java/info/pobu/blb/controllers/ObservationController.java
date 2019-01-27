@@ -3,6 +3,8 @@ package info.pobu.blb.controllers;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -28,11 +30,15 @@ public class ObservationController {
 
     @Autowired
     private IUserRepository userRepository;
+    
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @GetMapping(path = "/add")
     public @ResponseBody Observation addNewObservation(@RequestParam int user_id, @RequestParam String species,
             @RequestParam String location, @RequestParam  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) throws UserNotFoundException, SpeciesNotFoundException{
 
+        logger.info("adding new observation: " + species);
+        
         Species speciesValue = null;
         Optional<User> user = userRepository.findById(user_id);
         try {
@@ -41,8 +47,13 @@ public class ObservationController {
             throw new SpeciesNotFoundException("Species: " + species + " not found.");
         }
 
-        return observationRepository.save(new Observation(
+        final Observation observation = observationRepository.save(new Observation(
                 user.orElseThrow(() -> new UserNotFoundException("User with id " + user_id + " not found")), speciesValue,
                 location, date));
+        
+        logger.info("observation: " + observation.getSpecies().getLiteral() + " on: " + observation.getDate() + " added for user: " + user.get().getNick().getLiteral());
+        return observation;
     }
+    
+    
 }
