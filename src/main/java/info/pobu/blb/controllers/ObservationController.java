@@ -3,6 +3,7 @@ package info.pobu.blb.controllers;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,6 @@ import info.pobu.blb.entities.Observation;
 import info.pobu.blb.entities.Species;
 import info.pobu.blb.entities.User;
 import info.pobu.blb.repositories.IObservationRepository;
-import info.pobu.blb.repositories.IUserRepository;
 
 @Controller
 @RequestMapping(path = "/observation")
@@ -30,7 +30,7 @@ public class ObservationController {
     private IObservationRepository observationRepository;
 
     @Autowired
-    private IUserRepository userRepository;
+    private UserController userController;
     
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -41,7 +41,7 @@ public class ObservationController {
         logger.info("adding new observation: " + species);
         
         Species speciesValue = null;
-        Optional<User> user = userRepository.findById(user_id);
+        Optional<User> user = userController.findById(user_id);
         try {
             speciesValue = Species.valueOf(species);
         }catch (IllegalArgumentException e) {
@@ -60,5 +60,16 @@ public class ObservationController {
     public @ResponseBody List<Observation> getAllObservations(){
         logger.info("getting all observations");
         return observationRepository.findAll();
+    }
+    
+    @GetMapping(path = "/findBy", params = "userId")
+    public @ResponseBody List<Observation> findByUsersId(@RequestParam int user_id) throws UserNotFoundException{
+        logger.info("getting all observations for user: " + user_id);
+        User user = userController.findById(user_id).orElseThrow(() -> new UserNotFoundException("User with id " + user_id + " not found"));
+        return observationRepository.findAll().stream().filter(u -> {
+            final Integer id = user.getId();
+            return id.equals(u.getUser().getId());
+        })
+                .collect(Collectors.toList());
     }
 }

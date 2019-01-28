@@ -1,6 +1,7 @@
 package info.pobu.blb.controllers;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -88,5 +89,9 @@ public class UserController {
             throw new UserValidationFailedException(e.getMessage());
         }
         return usersNick;
+    }
+
+    protected Optional<User> findById(int userId) {
+        return userRepository.findById(userId);
     }
 }

@@ -34,7 +34,7 @@ public class ObservationControllerTest {
     private IObservationRepository repository;
     
     @MockBean
-    private IUserRepository userRepository;
+    private UserController userController;
     
     @Autowired
     private ObservationController controller;
@@ -92,8 +92,8 @@ public class ObservationControllerTest {
     
     @Before
     public void mock() {
-        Mockito.when(userRepository.findById(EXISTING_ID)).thenReturn(Optional.of(user));
-        Mockito.when(userRepository.findById(NOT_EXISTING_ID)).thenReturn(Optional.empty());
+        Mockito.when(userController.findById(EXISTING_ID)).thenReturn(Optional.of(user));
+        Mockito.when(userController.findById(NOT_EXISTING_ID)).thenReturn(Optional.empty());
         Mockito.when(repository.save(Mockito.any(Observation.class))).thenReturn(new Observation(user, Species.valueOf(SPECIES), LOCATION, DATE));
         Mockito.when(repository.findAll()).thenReturn(OBSERVATIONS);
         Mockito.when(user.getNick()).thenReturn(USER_A_NICK);
