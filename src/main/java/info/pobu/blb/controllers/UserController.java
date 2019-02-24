@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,12 +25,19 @@ import info.pobu.blb.repositories.IUserRepository;
 
 @Controller
 @RequestMapping(path = "/user")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
     @Autowired
     private IUserRepository userRepository;
     
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    
+    @RequestMapping("/greet")
+    public  @ResponseBody  String greet() {
+        System.out.println("jesttttes w greet");
+        return "hello Angular. Welcome on birdwatchers-log-book";
+    }
 
     @GetMapping(path = "/add")
     public @ResponseBody User addNewUser(@RequestParam String nick, @RequestParam String email)
