@@ -33,12 +33,6 @@ public class UserController {
     
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     
-    @RequestMapping("/greet")
-    public  @ResponseBody  String greet() {
-        System.out.println("jesttttes w greet");
-        return "hello Angular. Welcome on birdwatchers-log-book";
-    }
-
     @GetMapping(path = "/add")
     public @ResponseBody User addNewUser(@RequestParam String nick, @RequestParam String email)
             throws UserValidationFailedException {
