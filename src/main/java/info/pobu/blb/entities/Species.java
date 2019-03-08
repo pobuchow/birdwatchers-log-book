@@ -1,7 +1,10 @@
 package info.pobu.blb.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Getter;
 
+@JsonFormat(shape= JsonFormat.Shape.OBJECT)
 public enum Species {
 
     COMMON_KINGFISHER("Common Kingfisher", Genus.ALCEDO, "Alcedo atthis", Family.ALCEDINIDAE),

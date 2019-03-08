@@ -1,6 +1,17 @@
-<h2>Observation List</h2>
-<ul class="observations">
-  <li *ngFor="let observation of observations">
-    <span class="badge">{{observation.species}}</span>
-  </li>
-</ul>
+<div class="container">
+  <h2>All Observations</h2>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let observation of observations">
+        <td>{{observation.id}}</td>
+        <td>{{observation.species.literal}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

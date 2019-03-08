@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { Observation } from './observation';
 
@@ -8,7 +8,7 @@ import { Observation } from './observation';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit{
+export class AppComponent {
 
         title = "Birdwatchers Log Book";
 

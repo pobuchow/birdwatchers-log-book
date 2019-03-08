@@ -2,10 +2,12 @@ package info.pobu.blb.entities;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,11 +19,12 @@ import lombok.Getter;
 public class Observation {
 
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id")
+    @Getter
+    private Integer id;
 
     @NotNull
-//    @ElementCollection(targetClass = Species.class)
     @Enumerated(EnumType.STRING)
     @Getter
     private Species species;

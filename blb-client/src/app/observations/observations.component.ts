@@ -10,16 +10,15 @@ import { Observation } from '../observation';
 })
 export class ObservationsComponent implements OnInit {
 
-  observation : Observation = {id:1, specificName: 'Woodpecker'};
-
-  observations = Array<Observation>;
+  observations : Array<Observation>;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
       console.log('you are in ngOnInit');
       this.http.get<Array<Observation>>('http://localhost:8080/observation/all').subscribe(data => {
-          this.observations = data; });
+          console.log(data);
+          this.observations = data; }
+        );
   }
-
 }
