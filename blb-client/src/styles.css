@@ -20,6 +20,14 @@ body, input[type="text"], button {
   font-family: Helvetica, sans-serif;
 }
 
+td {
+  text-align: left;
+}
+
+tr {
+  text-align: left;
+}
+
 body {
   background-color: #E8E595;
 }
