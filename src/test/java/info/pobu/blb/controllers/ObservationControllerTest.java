@@ -24,7 +24,6 @@ import info.pobu.blb.entities.Observation;
 import info.pobu.blb.entities.Species;
 import info.pobu.blb.entities.User;
 import info.pobu.blb.repositories.IObservationRepository;
-import info.pobu.blb.repositories.IUserRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ObservationController.class)
