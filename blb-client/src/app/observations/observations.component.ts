@@ -14,6 +14,13 @@ export class ObservationsComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
+  selectedObservation: Observation;
+  onSelect(observation: Observation): void {
+    console.log("You are in onSelect");
+    this.selectedObservation = observation;
+    console.log(observation);
+  }
+
   ngOnInit() {
       console.log('you are in ngOnInit');
       this.http.get<Array<Observation>>('http://localhost:8080/observation/all').subscribe(data => {
