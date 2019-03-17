@@ -8,20 +8,10 @@ h2, h3 {
   font-family: Georgia, serif;
   font-weight: lighter;
 }
-body {
-  margin: 2em;
-}
-body, input[type="text"], button {
-  color: #26393D;
-  font-family: Helvetica, sans-serif;
-}
-
-{
-  font-family: Helvetica, sans-serif;
-}
 
 td {
   text-align: left;
+  cursor:pointer;
 }
 
 tr {
