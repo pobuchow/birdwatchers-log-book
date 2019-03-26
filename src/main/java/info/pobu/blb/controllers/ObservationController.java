@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import info.pobu.blb.controllers.exceptions.ObservationNotFoundException;
 import info.pobu.blb.controllers.exceptions.SpeciesNotFoundException;
 import info.pobu.blb.controllers.exceptions.UserNotFoundException;
 import info.pobu.blb.entities.Observation;
@@ -55,6 +56,16 @@ public class ObservationController {
                 location, date));
         
         logger.info("observation: " + observation.getSpecies().getLiteral() + " on: " + observation.getDate() + " added for user: " + user.get().getNick().getLiteral());
+        return observation;
+    }
+    
+    @GetMapping(path = "/delete", params = "id")
+    public @ResponseBody Observation deleteObservation(@RequestParam int id) throws ObservationNotFoundException{
+
+        final Observation observation = observationRepository.findById(id).orElseThrow(() -> new ObservationNotFoundException("Observation with id " + id + " not found"));
+        observationRepository.delete(observation);
+        
+        logger.info("observation: " + observation.getSpecies().getLiteral() + " on: " + observation.getDate() + " deleted for user: " + observation.getUser().getNick().getLiteral());
         return observation;
     }
     

@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import info.pobu.blb.controllers.exceptions.ObservationNotFoundException;
 import info.pobu.blb.controllers.exceptions.SpeciesNotFoundException;
 import info.pobu.blb.controllers.exceptions.UserNotFoundException;
 import info.pobu.blb.entities.Email;
@@ -131,4 +132,9 @@ public class ObservationControllerTest {
         Assert.assertEquals(OBSERVATIONS.size(), observations.size());
     }
 
+    @Test(expected = ObservationNotFoundException.class)
+    public void shouldThrowExceptionWhenObservationNotFoundByDeleting() throws ObservationNotFoundException {
+        
+        controller.deleteObservation(NOT_EXISTING_ID);
+    }
 }
