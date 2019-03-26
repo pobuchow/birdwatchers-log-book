@@ -43,19 +43,31 @@ public class ObservationController {
 
         logger.info("adding new observation: " + species);
         
-        Species speciesValue = null;
         Optional<User> user = userController.findById(user_id);
-        try {
-            speciesValue = Species.valueOf(species);
-        }catch (IllegalArgumentException e) {
-            throw new SpeciesNotFoundException("Species: " + species + " not found.");
-        }
+        Species speciesValue = getSpeciesValue(species);
 
         final Observation observation = observationRepository.save(new Observation(
                 user.orElseThrow(() -> new UserNotFoundException("User with id " + user_id + " not found")), speciesValue,
                 location, date));
         
         logger.info("observation: " + observation.getSpecies().getLiteral() + " on: " + observation.getDate() + " added for user: " + user.get().getNick().getLiteral());
+        return observation;
+    }
+
+    @GetMapping(path = "/edit")
+    public @ResponseBody Observation editObservation(@RequestParam int observation_id, @RequestParam String species,
+            @RequestParam String location, @RequestParam  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) throws ObservationNotFoundException, SpeciesNotFoundException{
+
+        Observation observation = observationRepository.findById(observation_id).orElseThrow(() -> new ObservationNotFoundException("Observation with id " + observation_id + " not found"));
+        
+        Species speciesValue = getSpeciesValue(species);
+
+        observation.setDate(date);
+        observation.setLocation(location);
+        observation.setSpecies(speciesValue);
+        observationRepository.save(observation);
+        
+        logger.info("observation: " + observation.getId() + " updated");
         return observation;
     }
     
@@ -84,5 +96,15 @@ public class ObservationController {
             return id.equals(u.getUser().getId());
         })
                 .collect(Collectors.toList());
+    }
+    
+    private Species getSpeciesValue(String species) throws SpeciesNotFoundException {
+        Species speciesValue = null;
+        try {
+            speciesValue = Species.valueOf(species);
+        }catch (IllegalArgumentException e) {
+            throw new SpeciesNotFoundException("Species: " + species + " not found.");
+        }
+        return speciesValue;
     }
 }
