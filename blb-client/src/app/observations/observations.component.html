@@ -9,6 +9,7 @@
       <tr>
         <th>id</th>
         <th>name</th>
+        <th>action</th>
       </tr>
     </thead>
     <tbody>
@@ -17,6 +18,11 @@
       (click)="onSelect(observation)">
         <td>#{{observation.id}}</td>
         <td data-toggle="modal" data-target="#detailsModal" >{{observation.species.literal}}</td>
+        <td>
+          <div class="btn btn-info btn-sm">
+              <span class="glyphicon glyphicon-trash" (click)="deleteObservation(observation)"></span>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>

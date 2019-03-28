@@ -32,11 +32,19 @@ export class ObservationsComponent implements OnInit {
         );
   }
 
+  deleteObservation(observation: Observation){
+    this.request = 'http://localhost:8080/observation/delete?id=' + observation.id;
+    console.log(this.request);
+    return this.http.get(this.request).subscribe(data => {
+      console.log(data);
+    });
+  }
+
   addObservation(user_id: string, species: string, location: string, date: string){
     this.request = 'http://localhost:8080/observation/add?user_id=' + user_id + '&species=' + species + '&location=' + location + '&date=' + date;
     console.log(this.request);
     return this.http.get(this.request).subscribe(data => {
       console.log(data);
-    });;
+    });
   }
 }
