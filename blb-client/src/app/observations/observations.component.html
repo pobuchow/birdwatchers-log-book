@@ -22,6 +22,9 @@
           <div class="btn btn-info btn-sm">
               <span class="glyphicon glyphicon-trash" (click)="deleteObservation(observation)"></span>
           </div>
+          <div class="btn btn-info btn-sm">
+              <span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#editObservation"></span>
+          </div>
         </td>
       </tr>
     </tbody>
@@ -78,6 +81,36 @@
       <div class="modal-footer">
         <button class="btn btn-default" data-dismiss="modal" (click)="addObservation(user_id.value, species.value, location.value, date.value)">add</button>
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="user_id.value=''; species.value = ''; location.value = ''; date.value = ''" >Close</button>
+      </div>
+
+  </div>
+</div>
+</div>
+
+<!-- Modal -->
+<div id="editObservation" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">edit observation</h4>
+      </div>
+      <div class="modal-body">
+        <label>specific name:
+          <input type="text" name="specific_name" value={{selectedObservation.species.literal}}>
+        </label>
+        <label>location:
+          <input type="text" name="location" value={{selectedObservation.location}}>
+        </label>
+        <label>specific name:
+          <input type="text" name="date" value={{selectedObservation.date}}>
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal"
+        (click)="editObservation(selectedObservation.id, selectedObservation.species.literal, selectedObservation.location, selectedObservation.date)">edit</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>
       </div>
 
   </div>
