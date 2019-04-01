@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 public class Observation {
@@ -26,20 +27,20 @@ public class Observation {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Getter
+    @Getter @Setter
     private Species species;
 
     @NotNull
-    @Getter
+    @Getter @Setter
     private String location;
 
     @NotNull
-    @Getter
+    @Getter @Setter
     private LocalDate date;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    @Getter
+    @Getter 
     private User user;
 
     public Observation(User user, Species species, String location, LocalDate date) {

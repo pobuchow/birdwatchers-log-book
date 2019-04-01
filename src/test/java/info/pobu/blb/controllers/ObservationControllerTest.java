@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import info.pobu.blb.controllers.exceptions.ObservationNotFoundException;
 import info.pobu.blb.controllers.exceptions.SpeciesNotFoundException;
 import info.pobu.blb.controllers.exceptions.UserNotFoundException;
 import info.pobu.blb.entities.Email;
@@ -95,6 +96,8 @@ public class ObservationControllerTest {
         Mockito.when(userController.findById(NOT_EXISTING_ID)).thenReturn(Optional.empty());
         Mockito.when(repository.save(Mockito.any(Observation.class))).thenReturn(new Observation(user, Species.valueOf(SPECIES), LOCATION, DATE));
         Mockito.when(repository.findAll()).thenReturn(OBSERVATIONS);
+        Mockito.when(repository.findById(EXISTING_ID)).thenReturn(Optional.of(OBSERVATIONS.get(EXISTING_ID)));
+        Mockito.when(repository.findById(NOT_EXISTING_ID)).thenReturn(Optional.empty());
         Mockito.when(user.getNick()).thenReturn(USER_A_NICK);
     }
 
@@ -117,7 +120,7 @@ public class ObservationControllerTest {
     }
     
     @Test(expected = SpeciesNotFoundException.class)
-    public void shouldNotFindSpecies() throws UserNotFoundException, SpeciesNotFoundException {
+    public void shouldNotFindSpeciesByAddingNewObservation() throws UserNotFoundException, SpeciesNotFoundException {
         controller.addNewObservation(EXISTING_ID, NOT_EXISTING_SPECIES, LOCATION, DATE);
     }
     
@@ -131,4 +134,19 @@ public class ObservationControllerTest {
         Assert.assertEquals(OBSERVATIONS.size(), observations.size());
     }
 
+    @Test(expected = ObservationNotFoundException.class)
+    public void shouldThrowExceptionWhenObservationNotFoundByDeleting() throws ObservationNotFoundException {
+        
+        controller.deleteObservation(NOT_EXISTING_ID);
+    }
+    
+    @Test(expected = ObservationNotFoundException.class)
+    public void shouldThrowExceptionWhenObservationNotFoundByEditing() throws ObservationNotFoundException, UserNotFoundException, SpeciesNotFoundException {
+        controller.editObservation(NOT_EXISTING_ID, SPECIES, LOCATION, DATE);
+    }
+    
+    @Test(expected = SpeciesNotFoundException.class)
+    public void shouldNotFindSpeciesByEditingObservation() throws UserNotFoundException, SpeciesNotFoundException {
+        controller.editObservation(EXISTING_ID, NOT_EXISTING_SPECIES, LOCATION, DATE);
+    }
 }
