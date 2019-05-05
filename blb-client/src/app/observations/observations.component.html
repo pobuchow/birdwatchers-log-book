@@ -98,18 +98,18 @@
       </div>
       <div class="modal-body">
         <label>specific name:
-          <input type="text" name="specific_name" value={{selectedObservation.species.literal}}>
+          <input #species type="text" name="specific_name" value={{selectedObservation.species.literal}}>
         </label>
         <label>location:
-          <input type="text" name="location" value={{selectedObservation.location}}>
+          <input #location type="text" name="location" value={{selectedObservation.location}}>
         </label>
         <label>specific name:
-          <input type="text" name="date" value={{selectedObservation.date}}>
+          <input #date type="text" name="date" value={{selectedObservation.date}}>
         </label>
       </div>
       <div class="modal-footer">
         <button class="btn btn-default" data-dismiss="modal"
-        (click)="editObservation(selectedObservation.id, selectedObservation.species.literal, selectedObservation.location, selectedObservation.date)">edit</button>
+        (click)="editObservation(selectedObservation.id, species.value, location.value, date.value)">edit</button>
         <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>
       </div>
 
