@@ -103,7 +103,8 @@ public class ObservationController {
         try {
             speciesValue = Species.valueOf(species);
         }catch (IllegalArgumentException e) {
-            throw new SpeciesNotFoundException("Species: " + species + " not found.");
+            Optional<Species> speciesLiteral = Optional.ofNullable(Species.getByLiteral(species));
+            return speciesLiteral.orElseThrow(() -> new SpeciesNotFoundException("Species: " + species + " not found."));
         }
         return speciesValue;
     }

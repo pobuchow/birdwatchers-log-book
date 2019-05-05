@@ -37,4 +37,11 @@ public enum Species {
         this.binomial = binomial;
         this.family = family;
     }
+    
+    public static Species getByLiteral(String literal) {
+        for (Species species : Species.values()) {
+            if(species.getLiteral().equals(literal)) return species;
+        }
+        return null;
+    }
 }
